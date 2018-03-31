@@ -1,4 +1,4 @@
-# BashApod
+# Astronomy Picture of the Day Wallpaper
 
 A simple service based on Astronomy Picture of the Day by the NASA (https://apod.nasa.gov/apod/astropix.html)
 
