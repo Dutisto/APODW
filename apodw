@@ -1,0 +1,48 @@
+#!/bin/bash
+
+#Check for internet connection
+
+wget -q --spider https://api.nasa.gov
+if [ "$?" -ne 0 ]; then
+  wget -q --spider https://api.nasa.gov
+  while [ "$?" -ne 0 ];do #Wait until it can reach api.nasa.gov
+      sleep 10m
+      wget -q --spider https://api.nasa.gov
+      done
+fi
+
+json=$(curl -ksS "https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY")
+
+#Retrieve the media type and the url for the download
+
+media_type=$(jq -r '.media_type' <<< "${json}")
+
+url=$(jq -r '.hdurl' <<< "${json}")
+
+#Retrieve image name
+
+img=$(basename $url)
+
+if [ $media_type == "image" ] #Check if it's an image
+then
+  if [ ! -f ~/Pictures/apod/"$img" ] #Check if the image is not already in our folder
+  then
+
+    wget -P ~/Pictures/apod/ $url #Download the image on the folder
+
+    PID=$(pgrep gnome-session) #Retrieve the gnome-session ID
+    if [ "$?" -ne 0 ]; then
+      PID=$(pgrep gnome-session)
+      while [ "$?" -ne 0 ];do #If there isn't one, wait for it
+          sleep 30
+          PID=$(pgrep gnome-session)
+          done
+    fi
+
+    export DBUS_SESSION_BUS_ADDRESS=$(grep -z DBUS_SESSION_BUS_ADDRESS /proc/$PID/environ|cut -d= -f2-)
+
+    sleep 5
+
+    gsettings set org.gnome.desktop.background picture-uri file://$HOME//Pictures/apod/"$img" #Set the wallpaper
+  fi
+fi

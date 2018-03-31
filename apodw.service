@@ -1,0 +1,13 @@
+[Unit]
+Wants=network-online.target
+After=network-online.target
+Description=Astronomical Picture of the Day Wallpaper
+
+[Service]
+Type=oneshot
+User=axel
+Environment=DISPLAY=:0
+ExecStart=/bin/bash /usr/bin/apodw
+
+[Install]
+WantedBy=multi-user.target
