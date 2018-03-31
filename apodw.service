@@ -5,7 +5,7 @@ Description=Astronomy Picture of the Day Wallpaper
 
 [Service]
 Type=oneshot
-User=axel
+User=USER
 Environment=DISPLAY=:0
 ExecStart=/bin/bash /usr/bin/apodw
 
