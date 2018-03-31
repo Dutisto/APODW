@@ -18,4 +18,4 @@ systemctl enable apodw.timer
 
 echo "Starting service..."
 
-service apodw start || echo "something went wrong during APOD start up =["
+service apodw start || echo "something went wrong during APODW start up =["
