@@ -1,5 +1,5 @@
 [Unit]
-Description=Astronomical Picture of the Day Wallpaper timer
+Description=Astronomy Picture of the Day Wallpaper timer
 
 [Timer]
 OnCalendar=hourly
