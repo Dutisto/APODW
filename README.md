@@ -8,4 +8,4 @@ Installation :
 
 Simply run sudo install.sh with the username of the user you want to run the service as. (You will want to set it as the current user)
 
-sudo install.sh dutisto
+sudo bash install.sh dutisto
